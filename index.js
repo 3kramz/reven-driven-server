@@ -40,7 +40,9 @@ async function run(){
      
 
       
-
+     app.get('/',(req,res)=>{
+       res.send('Reven driven server is running....')
+     })
   }
   finally{}
 }
@@ -48,5 +50,5 @@ run().catch(console.dir);
 
 
 app.listen(port, () =>{
-  console.log('John is running on  port', port);
+  console.log('Reven driven server is running on  port', port);
 })
