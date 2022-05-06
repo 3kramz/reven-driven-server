@@ -22,7 +22,7 @@ async function run(){
       await client.connect();
       const InventoryCollection = client.db('reven').collection('inventory');
 
-      app.get('/', async(req, res) =>{
+      app.get('/home', async(req, res) =>{
          const size = 6
           const query = {};
           const cursor = InventoryCollection.find(query);
