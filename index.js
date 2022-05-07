@@ -2,7 +2,7 @@ const express = require('express')
 require('dotenv').config()
 const app = express()
 const cors = require('cors')
-const port = process.env.PORT || 5050
+const port = process.env.PORT || 5000
 
 app.use(express.json())
 app.use(cors())
@@ -37,6 +37,20 @@ async function run(){
         res.send(inventory);
      });
 
+
+       // update user
+       app.put('/user/:id', async(req, res) =>{
+        const id = req.params.id;
+        const data = req.body;
+        const filter = {_id: ObjectId(id)};
+        const options = { upsert: true };
+        const newData = {
+            $set: data
+        };
+        const result = await InventoryCollection.updateOne(filter, newData, options);
+        res.send(result);
+
+    })
      
 
       
