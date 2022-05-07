@@ -39,7 +39,7 @@ async function run(){
 
 
        // update user
-       app.put('/user/:id', async(req, res) =>{
+       app.put('/inventory/:id', async(req, res) =>{
         const id = req.params.id;
         const data = req.body;
         const filter = {_id: ObjectId(id)};
