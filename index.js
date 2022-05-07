@@ -62,7 +62,21 @@ async function run(){
         const result = await InventoryCollection.updateOne(filter, newData, option);
         res.send(result);
     })
+
+    //  Delete inventory 
+    app.delete('/manage/:id', async(req, res) =>{
+      const id = req.params.id
+      const query = { "_id": ObjectId(id)};
      
+      const result = await InventoryCollection.deleteOne(query);
+      if (result.deletedCount === 1) {
+        res.send(result);
+      } else {
+        res.send(failed);
+      }
+    
+   });
+    
 
       
      app.get('/',(req,res)=>{
