@@ -22,7 +22,7 @@ async function run(){
   try{
       await client.connect();
       const InventoryCollection = client.db('reven').collection('inventory');
-
+      // port for home component
       app.get('/home', async(req, res) =>{
          const size = 6
           const query = {};
@@ -30,6 +30,14 @@ async function run(){
           const inventory = await cursor.limit(size).toArray();
          res.send(inventory);
       });
+
+      // port for manage inventory
+      app.get('/manageInv', async(req, res) =>{
+         const query = {};
+         const cursor = InventoryCollection.find(query);
+         const inventory = await cursor.toArray();
+        res.send(inventory);
+     }); 
 
       app.get('/inventory/:id', async(req, res) =>{
         const id = req.params.id
