@@ -3,6 +3,8 @@ require('dotenv').config()
 const app = express()
 const cors = require('cors')
 const port = process.env.PORT || 5000
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+
 
 app.use(express.json())
 app.use(cors())
@@ -10,7 +12,6 @@ app.use(cors())
 
 
 const uri = process.env.URL
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -43,13 +44,15 @@ async function run(){
         const id = req.params.id;
         const data = req.body;
         const filter = {_id: ObjectId(id)};
-        const options = { upsert: true };
-        const newData = {
-            $set: data
+       const option = { upsert: true };
+        const newData = { 
+          $set: {
+            stock:data.stock,
+            sold: data.sold
+          }
         };
-        const result = await InventoryCollection.updateOne(filter, newData, options);
+        const result = await InventoryCollection.updateOne(filter, newData, option);
         res.send(result);
-
     })
      
 
