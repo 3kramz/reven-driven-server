@@ -33,7 +33,10 @@ async function run(){
 
       // port for manage inventory
       app.get('/manageInv', async(req, res) =>{
-         const query = {};
+        const email= req.query.email
+       
+         const query = {email:email};
+         
          const cursor = InventoryCollection.find(query);
          const inventory = await cursor.toArray();
         res.send(inventory);
@@ -70,7 +73,7 @@ async function run(){
     });
 
     //  Delete inventory 
-    app.delete('/manage/:id', async(req, res) =>{
+    app.delete('/delete/:id', async(req, res) =>{
       const id = req.params.id
       const query = { "_id": ObjectId(id)};
      const result = await InventoryCollection.deleteOne(query);
