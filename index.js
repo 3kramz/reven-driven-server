@@ -33,14 +33,19 @@ async function run(){
 
       // port for manage inventory
       app.get('/manageInv', async(req, res) =>{
-        const email= req.query.email
-       
-         const query = {email:email};
-         
+         const email= req.query
+         const query = {};
          const cursor = InventoryCollection.find(query);
          const inventory = await cursor.toArray();
         res.send(inventory);
      }); 
+     app.get('/myItems', async(req, res) =>{
+      const email= req.query.email
+       const query = {email:email};
+       const cursor = InventoryCollection.find(query);
+       const inventory = await cursor.toArray();
+      res.send(inventory);
+   }); 
 
       app.get('/inventory/:id', async(req, res) =>{
         const id = req.params.id
